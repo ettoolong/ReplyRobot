@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE page SYSTEM "chrome://ettreplyrobot/locale/ettreplyrobot.dtd" >
+<?xml-stylesheet href="chrome://ettreplyrobot/skin/ettreplyrobot.css" type="text/css"?>
+
+<dialog id="ettreplyrobot-addText"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    title="&deltext_window.label;"
+    buttons="accept,cancel"
+    buttonlabelcancel="&deltext_cancel.label;"
+    buttonlabelaccept="&deltext_ok.label;"
+    ondialogaccept="return doOK();"
+    ondialogcancel="return doCancel();"
+    persist="width height screenX screenY"
+    windowtype="addTextDialogWindowType">
+
+    <label value="&deltext_confirm.label;"/>
+
+  <script type="application/x-javascript">
+    <![CDATA[
+
+    function doOK() {
+      var retVals = window.arguments[0];
+      retVals.exec = true;
+      return true;
+    }
+
+    function doCancel() {
+      var retVals = window.arguments[0];
+      retVals.exec = false;
+      return true;
+    }
+
+    ]]>
+  </script>
+</dialog>

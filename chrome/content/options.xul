@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://ettreplyrobot/locale/ettreplyrobot.dtd">
+
+<prefwindow id="ettreplyrobot-preferences"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            onload="load();"
+            ondialogaccept="save();"
+            ondialogcancel="cancel();"
+            title="&ettreplyrobotpref.title;">
+  <prefpane id="generalpane">
+
+    <box flex="1">
+      <vbox flex="1">
+        <groupbox>
+          <vbox>
+            <hbox>
+              <listbox flex="1" width="500" id="TextList" ondblclick="modifySelText();" onselect="updateButtonState();">
+                <listhead>
+                  <listheader label="&option_usertext.label;" width="350" maxwidth="350"/>
+                  <listheader label="&option_texthotket.label;" width="150"/>
+                </listhead>
+                <listcols>
+                  <listcol maxwidth="350"/>
+                  <listcol/>
+                </listcols>
+              </listbox>
+              <vbox>
+                <button id="btnMoveUp" label="&option_moveup.label;" oncommand="textMoveUp();"/>
+                <button id="btnMoveDown" label="&option_movedown.label;" oncommand="textMoveDown();"/>
+              </vbox>
+            </hbox>
+
+            <hbox>
+              <button id="btnImport" label="&option_importtext.label;" oncommand="importText();"/>
+              <button id="btnExport" label="&option_exporttext.label;" oncommand="exportText();"/>
+              <spacer flex="2" />
+              <button id="btnAdd" label="&option_addnewtext.label;" oncommand="addNewText();"/>
+              <button id="btnDel" label="&option_delseltext.label;" disabled="true" oncommand="delSelText();"/>
+              <button id="btnModify" label="&option_modifyseltext.label;" disabled="true" oncommand="modifySelText();"/>
+            </hbox>
+          </vbox>
+        </groupbox>
+      </vbox>
+    </box>
+  </prefpane>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/options.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/rrcodeToStr.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/ettReplyRobotText.js"/>
+  <script type="application/x-javascript">
+    <![CDATA[
+  var options = null;
+  var instantApply = false;
+    function load() {
+      var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch('browser.preferences.');
+      instantApply = prefs.getBoolPref('instantApply');
+      options = new EttReplyRobotOptions();
+      options.load();
+    }
+
+    function save() {
+      options.save();
+      options.finish();
+    }
+
+    function cancel() {
+      options.finish();
+    }
+
+    function addNewText() {
+      if(options.addNewText())
+        if(instantApply)
+          options.save();
+    }
+
+    function delSelText() {
+      if(options.delSelText())
+        if(instantApply)
+          options.save();
+    }
+
+    function modifySelText() {
+      if(options.modifySelText())
+        if(instantApply)
+          options.save();
+    }
+
+    function importText() {
+      if(options.importText())
+        if(instantApply)
+          options.save();
+    }
+
+    function exportText() {
+      options.exportText();
+    }
+
+    function textMoveUp() {
+      if(options.textMoveUp())
+        if(instantApply)
+          options.save();
+    }
+
+    function textMoveDown() {
+      if(options.textMoveDown())
+        if(instantApply)
+          options.save();
+    }
+
+    function updateButtonState() {
+      options.updateButtonState();
+    }
+
+    ]]>
+  </script>
+</prefwindow>

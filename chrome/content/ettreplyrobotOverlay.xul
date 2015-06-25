@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://ettreplyrobot/skin/ettreplyrobot.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://ettreplyrobot/locale/ettreplyrobot.dtd">
+<overlay id="ettreplyrobot-Overlay" xmlns:html="http://www.w3.org/1999/xhtml" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://ettreplyrobot/content/ccMapping.js"/>
+<script type="application/x-javascript" src="chrome://ettreplyrobot/content/ccMapping_Mac.js"/>
+<script type="application/x-javascript" src="chrome://ettreplyrobot/content/kcMapping.js"/>
+<script type="application/x-javascript" src="chrome://ettreplyrobot/content/ettReplyRobotText.js"/>
+<script type="application/x-javascript" src="chrome://ettreplyrobot/content/ettreplyrobotOverlay.js"/>
+  <menupopup id="contentAreaContextMenu">
+    <menuitem id="ettreplyrobot_menu-insertText" label="&menu_insertText.label;" oncommand="EttReplyRobot.insertText();"/>
+  </menupopup>
+</overlay>
+

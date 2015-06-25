@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!DOCTYPE page SYSTEM "chrome://ettreplyrobot/locale/ettreplyrobot.dtd" >
+<?xml-stylesheet href="chrome://ettreplyrobot/skin/ettreplyrobot.css" type="text/css"?>
+
+<dialog id="ettreplyrobot-editText"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    title="&edittext_window.label;"
+    buttondisabledaccept="true"
+    onload="load();"
+    ondialogaccept="return btnOkClick();"
+    ondialogcancel="return btnCancelClick();"
+    persist="width height screenX screenY"
+    windowtype="editTextDialogWindowType">
+
+    <vbox flex="1">
+      <hbox align="center">
+        <label value="&edittext_newText.label;"/>
+        <spacer flex="1" />
+        <checkbox id="bbsCodeMode" label="&edittext_bbscodemode.label;"/>
+        <label value="&edittext_scope.label;"/>
+        <menulist editable="false" id="global">
+          <menupopup>
+            <menuitem label="&edittext_dialog.label;" value="0"/>
+            <menuitem label="&edittext_http.label;" value="1"/>
+            <menuitem label="&edittext_telnet.label;" value="2"/>
+            <menuitem label="&edittext_global.label;" value="3"/>
+          </menupopup>
+        </menulist>
+      </hbox>
+      <textbox flex="1" id="newText" multiline="true" rows="8" wrap="off" clickSelectsAll="true" oninput="checkValue();"/>
+      <hbox align="center">
+        <label value="&edittext_hotkey.label;"/>
+        <spacer flex="1"/>
+        <checkbox id="pressCtrl" label="&edittext_ctrl.label;"/>
+        <checkbox id="pressAlt" label="&edittext_alt.label;"/>
+        <checkbox id="pressShift" label="&edittext_shift.label;"/>
+        <menulist editable="false" id="pressKey">
+          <menupopup>
+            <menuitem label="" value="0"/>
+            <menuitem label="A" value="1"/>
+            <menuitem label="B" value="2"/>
+            <menuitem label="C" value="3"/>
+            <menuitem label="D" value="4"/>
+            <menuitem id="notSupport1" label="E" value="5"/>
+            <menuitem label="F" value="6"/>
+            <menuitem label="G" value="7"/>
+            <menuitem label="H" value="8"/>
+            <menuitem id="notSupport2" label="I" value="9"/>
+            <menuitem label="J" value="10"/>
+            <menuitem label="K" value="11"/>
+            <menuitem label="L" value="12"/>
+            <menuitem label="M" value="13"/>
+            <menuitem id="notSupport3" label="N" value="14"/>
+            <menuitem label="O" value="15"/>
+            <menuitem label="P" value="16"/>
+            <menuitem label="Q" value="17"/>
+            <menuitem label="R" value="18"/>
+            <menuitem label="S" value="19"/>
+            <menuitem label="T" value="20"/>
+            <menuitem id="notSupport4" label="U" value="21"/>
+            <menuitem label="V" value="22"/>
+            <menuitem label="W" value="23"/>
+            <menuitem label="X" value="24"/>
+            <menuitem label="Y" value="25"/>
+            <menuitem label="Z" value="26"/>
+            <menuitem label="0" value="27"/>
+            <menuitem label="1" value="28"/>
+            <menuitem label="2" value="29"/>
+            <menuitem label="3" value="30"/>
+            <menuitem label="4" value="31"/>
+            <menuitem label="5" value="32"/>
+            <menuitem label="6" value="33"/>
+            <menuitem label="7" value="34"/>
+            <menuitem label="8" value="35"/>
+            <menuitem label="9" value="36"/>
+            <menuitem id="notSupport5" label="~" value="37"/>
+            <menuitem label="-" value="38"/>
+            <menuitem label="+" value="39"/>
+            <menuitem label="[" value="40"/>
+            <menuitem label="]" value="41"/>
+            <menuitem label=";" value="42"/>
+            <menuitem label="'" value="43"/>
+            <menuitem label="," value="44"/>
+            <menuitem label="." value="45"/>
+            <menuitem label="?" value="46"/>
+            <menuitem label="\" value="47"/>
+            <menuitem label="F1" value="48"/>
+            <menuitem label="F2" value="49"/>
+            <menuitem label="F3" value="50"/>
+            <menuitem label="F4" value="51"/>
+            <menuitem label="F5" value="52"/>
+            <menuitem label="F6" value="53"/>
+            <menuitem label="F7" value="54"/>
+            <menuitem label="F8" value="55"/>
+            <menuitem label="F9" value="56"/>
+            <menuitem label="F10" value="57"/>
+            <menuitem label="F11" value="58"/>
+            <menuitem label="F12" value="59"/>
+            <menuitem label="Tab" value="60"/>
+            <menuitem label="Space" value="61"/>
+            <menuitem id="notSupport6" label="Backspace" value="62"/>
+            <menuitem id="notSupport7" label="Delete" value="63"/>
+            <menuitem label="Home" value="64"/>
+            <menuitem label="End" value="65"/>
+            <menuitem label="PageUp" value="66"/>
+            <menuitem label="PageDown" value="67"/>
+          </menupopup>
+        </menulist>
+      </hbox>
+    </vbox>
+
+  <script type="application/x-javascript">
+    <![CDATA[
+
+    function setAcceptBtn(enable) {
+      document.getElementById('ettreplyrobot-editText').setAttribute('buttondisabledaccept', !enable);
+    }
+
+    function load() {
+      var OS = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime).OS;
+      if(OS=='Darwin')
+      {
+        document.getElementById('notSupport1').hidden=true; //these hotkey not support in Mac
+        document.getElementById('notSupport2').hidden=true;
+        document.getElementById('notSupport3').hidden=true;
+        document.getElementById('notSupport4').hidden=true;
+        document.getElementById('notSupport5').hidden=true;
+        document.getElementById('notSupport6').hidden=true;
+        document.getElementById('notSupport7').hidden=true;
+      }
+      //
+      var retVals = window.arguments[0];
+      if(retVals.text)
+      {
+        document.getElementById("newText").value = retVals.text;
+        document.getElementById("pressCtrl").checked = retVals.ctrl;
+        document.getElementById("pressAlt").checked = retVals.alt;
+        document.getElementById("pressShift").checked = retVals.shift;
+        document.getElementById("pressKey").value = retVals.key;
+        document.getElementById("global").value = retVals.global;
+        document.getElementById("bbsCodeMode").checked = (retVals.type==1);
+        setAcceptBtn(true);
+      }
+      document.getElementById("newText").focus();
+    }
+
+    function btnCancelClick() {
+      var retVals = window.arguments[0];
+      retVals.exec  = false;
+      return true;
+    }
+
+    function btnOkClick() {
+      var retVals = window.arguments[0];
+      retVals.exec  = true;
+      retVals.text  = document.getElementById("newText").value;
+      retVals.ctrl  = document.getElementById("pressCtrl").checked;
+      retVals.alt   = document.getElementById("pressAlt").checked;
+      retVals.shift = document.getElementById("pressShift").checked;
+      retVals.key   = document.getElementById("pressKey").value;
+      retVals.global= document.getElementById("global").value;
+      retVals.type  = (document.getElementById("bbsCodeMode").checked ? 1 : 0);
+      return true;
+    }
+
+    function checkValue() {
+      var nt = document.getElementById("newText").value;
+      if(nt=='')
+      {
+        setAcceptBtn(false);
+        return;
+      }
+      setAcceptBtn(true);
+    }
+
+    ]]>
+  </script>
+</dialog>

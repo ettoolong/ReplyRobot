@@ -1,0 +1,7 @@
+content ettreplyrobot chrome/content/
+locale ettreplyrobot en-US chrome/locale/en-US/
+locale ettreplyrobot sv-SE chrome/locale/sv-SE/
+locale ettreplyrobot zh-TW chrome/locale/zh-TW/
+locale ettreplyrobot zh-CN chrome/locale/zh-CN/
+skin ettreplyrobot classic/1.0 chrome/skin/default/
+overlay	chrome://browser/content/browser.xul chrome://ettreplyrobot/content/ettreplyrobotOverlay.xul

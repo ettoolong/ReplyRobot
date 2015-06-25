@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE page SYSTEM "chrome://ettreplyrobot/locale/ettreplyrobot.dtd" >
+<?xml-stylesheet href="chrome://ettreplyrobot/skin/RRTextList.css" type="text/css"?>
+
+<window id="multise"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    title="&textwindow_title.label;"
+    onload="RRTextList.init();"
+    onunload="RRTextList.finish();"
+    persist="width height screenX screenY sizemode"
+    windowtype="RRTextList">
+
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/rrTextList.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/rrcodeToStr.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/ettReplyRobotText.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/ccMapping.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/ccMapping_Mac.js"/>
+  <script type="application/x-javascript" src="chrome://ettreplyrobot/content/kcMapping.js"/>
+  <box flex="1">
+    <vbox flex="1">
+      <listbox flex="1"  rows="10" width="500" id="TextList" ondblclick="RRTextList.onInputText();" onselect="RRTextList.selChanged();">
+        <listhead>
+          <listheader label="&option_usertext.label;" width="350" maxwidth="350"/>
+          <listheader label="&option_texthotket.label;" width="150"/>
+        </listhead>
+        <listcols>
+          <listcol maxwidth="350"/>
+          <listcol/>
+        </listcols>
+      </listbox>
+      <label value=""/>
+      <label value="&textwindow_preview.label;"/>
+      <textbox id="textPreview" multiline="true" rows="8" wrap="off" readonly="true"/>
+      <hbox>
+        <spacer flex="2" />
+        <button label="&textwindow_ok.label;" id="btnOK" disabled="true" oncommand="RRTextList.onInputText();"/>
+        <button label="&textwindow_cancel.label;" oncommand="RRTextList.onCancelInput();"/>
+      </hbox>
+    </vbox>
+  </box>
+</window>
